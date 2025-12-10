@@ -1,19 +1,46 @@
 body {
-  font-family: Arial, sans-serif;
   text-align: center;
-  margin-top: 80px;
-  background: #f0f0f0;
+  font-family: Arial, sans-serif;
+  background: #f4f4f4;
+  padding-top: 40px;
+}
+
+#wheel {
+  width: 250px;
+  height: 250px;
+  margin: 0 auto;
+  border-radius: 50%;
+  border: 8px solid #333;
+  background: conic-gradient(
+    #f39c12 0deg 45deg,
+    #e74c3c 45deg 90deg,
+    #9b59b6 90deg 135deg,
+    #3498db 135deg 180deg,
+    #2ecc71 180deg 225deg,
+    #1abc9c 225deg 270deg,
+    #e67e22 270deg 315deg,
+    #95a5a6 315deg 360deg
+  );
+  transition: transform 4s ease;
 }
 
 button {
-  padding: 12px 25px;
-  border: none;
-  background: #3498db;
-  color: white;
+  margin-top: 30px;
+  padding: 14px 28px;
   font-size: 18px;
+  background: #3498db;
+  border: none;
+  color: #fff;
   cursor: pointer;
+  border-radius: 6px;
 }
 
 button:hover {
   background: #2980b9;
+}
+
+#result {
+  margin-top: 25px;
+  font-size: 22px;
+  font-weight: bold;
 }
