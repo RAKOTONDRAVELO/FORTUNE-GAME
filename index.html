@@ -4,8 +4,65 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Jeu de la Fortune</title>
-  <link rel="stylesheet" href="style.css">
+
+  <style>
+    body {
+      text-align: center;
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      padding-top: 40px;
+    }
+
+    #wheel {
+      width: 250px;
+      height: 250px;
+      margin: 0 auto;
+      border-radius: 50%;
+      border: 8px solid #333;
+      background: conic-gradient(
+        #f39c12 0deg 45deg,
+        #e74c3c 45deg 90deg,
+        #9b59b6 90deg 135deg,
+        #3498db 135deg 180deg,
+        #2ecc71 180deg 225deg,
+        #1abc9c 225deg 270deg,
+        #e67e22 270deg 315deg,
+        #95a5a6 315deg 360deg
+      );
+      transition: transform 4s ease;
+    }
+
+    button {
+      margin-top: 30px;
+      padding: 14px 28px;
+      font-size: 18px;
+      background: #3498db;
+      border: none;
+      color: #fff;
+      cursor: pointer;
+      border-radius: 6px;
+    }
+
+    button:hover {
+      background: #2980b9;
+    }
+
+    #result {
+      margin-top: 25px;
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    #prize-image {
+      margin-top: 15px;
+      width: 160px;
+      height: 160px;
+      object-fit: contain;
+      display: none;
+    }
+  </style>
 </head>
+
 <body>
 
   <h1>🎰 Jeu de la Fortune</h1>
@@ -15,9 +72,47 @@
   <button id="spinBtn">Ahodino!</button>
 
   <p id="result"></p>
+  <img id="prize-image">
 
-  <script src="app.js"></script>
+  <script>
+    const wheel = document.getElementById("wheel");
+    const result = document.getElementById("result");
+    const spinBtn = document.getElementById("spinBtn");
+    const img = document.getElementById("prize-image");
+
+    /* ✔️ Sary stable & hébergé en ligne (GitHub raw images) */
+    const prizes = [
+      { text: "🎉 Nahazo 5 000 Ar!", img: "https://raw.githubusercontent.com/encharts/assets/main/money1.png" },
+      { text: "😢 Tsy nisy vintana!", img: "https://raw.githubusercontent.com/encharts/assets/main/lose.png" },
+      { text: "🎁 Nahazo Bonus!", img: "https://raw.githubusercontent.com/encharts/assets/main/bonus.png" },
+      { text: "🎉 Nahazo 10 000 Ar!", img: "https://raw.githubusercontent.com/encharts/assets/main/money2.png" },
+      { text: "🍀 Vintana manokana!", img: "https://raw.githubusercontent.com/encharts/assets/main/lucky.png" },
+      { text: "😢 Very!", img: "https://raw.githubusercontent.com/encharts/assets/main/fail.png" },
+      { text: "🎉 Nahazo 20 000 Ar!", img: "https://raw.githubusercontent.com/encharts/assets/main/money3.png" },
+      { text: "🎊 Mega Bonus!", img: "https://raw.githubusercontent.com/encharts/assets/main/superbonus.png" }
+    ];
+
+    spinBtn.addEventListener("click", () => {
+      let randomDegree = Math.floor(3600 + Math.random() * 360);
+
+      wheel.style.transform = `rotate(${randomDegree}deg)`;
+
+      spinBtn.disabled = true;
+      result.textContent = "Miandry aloha...";
+      img.style.display = "none";
+
+      setTimeout(() => {
+        let normalized = randomDegree % 360;
+        let sector = Math.floor(normalized / 45);
+
+        result.textContent = prizes[sector].text;
+        img.src = prizes[sector].img;
+        img.style.display = "block";
+
+        spinBtn.disabled = false;
+      }, 4200);
+    });
+  </script>
 
 </body>
 </html>
-
